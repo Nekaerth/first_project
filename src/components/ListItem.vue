@@ -34,7 +34,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["removeItem"]),
+    ...mapActions("items", ["removeItem"]),
   },
 };
 </script>

@@ -17,7 +17,7 @@
     <template v-if="selectedItemType === 'Person'">
       <input type="text" placeholder="Name" v-model="itemName" />
       <input type="number" placeholder="Age" v-model="age" />
-      <button @click="addItem">
+      <button @click="addItem(getPersonFromInput()) && clearInputs()">
         Add person
       </button>
       <p>{{ itemName }}: {{ age }}</p>
@@ -25,13 +25,17 @@
     <template v-else>
       <input type="text" placeholder="Product name" v-model="itemName" />
       <input type="text" placeholder="Description" v-model="description" />
-      <button @click="addItem">Add product</button>
+      <button @click="addItem(getProductFromInput()) && clearInputs()">
+        Add product
+      </button>
       <p>{{ itemName }}: {{ description }}</p>
     </template>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "ItemMaker",
   data() {
@@ -51,23 +55,20 @@ export default {
     },
   },
   methods: {
-    addItem() {
-      var item = {};
-      if (this.selectedItemType == "Person") {
-        item = {
-          name: this.itemName,
-          age: this.age,
-          type: this.selectedItemType,
-        };
-      } else {
-        item = {
-          name: this.itemName,
-          description: this.description,
-          type: this.selectedItemType,
-        };
-      }
-      this.$store.dispatch("addItem", item);
-      this.clearInputs();
+    ...mapActions("items", ["addItem"]),
+    getPersonFromInput() {
+      return {
+        name: this.itemName,
+        age: this.age,
+        type: this.selectedItemType,
+      };
+    },
+    getProductFromInput() {
+      return {
+        name: this.itemName,
+        description: this.description,
+        type: this.selectedItemType,
+      };
     },
     clearInputs() {
       this.itemName = "";

@@ -37,10 +37,11 @@ export default {
     Product,
   },
   computed: {
-    ...mapState(["items", "status"]),
+    ...mapState("items", ["items"]),
+    ...mapState("todos", ["status"]),
   },
   methods: {
-    ...mapActions(["fetchTodos"]),
+    ...mapActions("todos", ["fetchTodos"]),
   },
   mounted() {
     this.fetchTodos();
