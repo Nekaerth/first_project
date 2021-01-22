@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <p>Todo status: {{ status }}</p>
+    <TodoContainer v-slot="{ status }">
+      Todo status: {{ status }}
+    </TodoContainer>
     <ItemContainer v-slot="{ items }">
       <div>
         <ItemMaker />
@@ -32,7 +34,8 @@ import ItemMaker from "./components/ItemMaker.vue";
 import Person from "./components/Person.vue";
 import Product from "./components/Product.vue";
 import ItemContainer from "./containers/itemContainer.js";
-import { mapState, mapActions } from "vuex";
+import TodoContainer from "./containers/todoContainer.js";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -41,9 +44,7 @@ export default {
     ItemMaker,
     Product,
     ItemContainer,
-  },
-  computed: {
-    ...mapState("todos", ["status"]),
+    TodoContainer,
   },
   methods: {
     ...mapActions("todos", ["fetchTodos"]),
