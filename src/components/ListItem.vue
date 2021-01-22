@@ -10,7 +10,7 @@
     </div>
     <div>
       <slot name="footer">
-        <button @click="removeItem(id)">
+        <button @click="itemContainer.removeItem(id)">
           Discard
         </button>
       </slot>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "ListItem",
   props: {
@@ -33,9 +31,7 @@ export default {
       default: "List item",
     },
   },
-  methods: {
-    ...mapActions("items", ["removeItem"]),
-  },
+  inject: ["itemContainer"],
 };
 </script>
 

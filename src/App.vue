@@ -1,25 +1,29 @@
 <template>
   <div id="app">
     <p>Todo status: {{ status }}</p>
-    <ItemMaker />
+    <ItemContainer v-slot="{ items }">
+      <div>
+        <ItemMaker />
 
-    <template v-for="item in items">
-      <Product
-        v-if="item.type == 'Product'"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :description="item.description"
-      >
-      </Product>
-      <Person
-        v-else
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :age="item.age"
-      />
-    </template>
+        <template v-for="item in items">
+          <Product
+            v-if="item.type == 'Product'"
+            :key="item.id"
+            :id="item.id"
+            :name="item.name"
+            :description="item.description"
+          >
+          </Product>
+          <Person
+            v-else
+            :key="item.id"
+            :id="item.id"
+            :name="item.name"
+            :age="item.age"
+          />
+        </template>
+      </div>
+    </ItemContainer>
   </div>
 </template>
 
@@ -27,6 +31,7 @@
 import ItemMaker from "./components/ItemMaker.vue";
 import Person from "./components/Person.vue";
 import Product from "./components/Product.vue";
+import ItemContainer from "./containers/itemContainer.js";
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -35,9 +40,9 @@ export default {
     Person,
     ItemMaker,
     Product,
+    ItemContainer,
   },
   computed: {
-    ...mapState("items", ["items"]),
     ...mapState("todos", ["status"]),
   },
   methods: {

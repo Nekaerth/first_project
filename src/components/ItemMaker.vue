@@ -17,7 +17,9 @@
     <template v-if="selectedItemType === 'Person'">
       <input type="text" placeholder="Name" v-model="itemName" />
       <input type="number" placeholder="Age" v-model="age" />
-      <button @click="addItem(getPersonFromInput()) && clearInputs()">
+      <button
+        @click="itemContainer.addItem(getPersonFromInput()) && clearInputs()"
+      >
         Add person
       </button>
       <p>{{ itemName }}: {{ age }}</p>
@@ -25,7 +27,9 @@
     <template v-else>
       <input type="text" placeholder="Product name" v-model="itemName" />
       <input type="text" placeholder="Description" v-model="description" />
-      <button @click="addItem(getProductFromInput()) && clearInputs()">
+      <button
+        @click="itemContainer.addItem(getProductFromInput()) && clearInputs()"
+      >
         Add product
       </button>
       <p>{{ itemName }}: {{ description }}</p>
@@ -34,8 +38,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "ItemMaker",
   data() {
@@ -55,7 +57,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions("items", ["addItem"]),
     getPersonFromInput() {
       return {
         name: this.itemName,
@@ -76,6 +77,7 @@ export default {
       this.description = "";
     },
   },
+  inject: ["itemContainer"],
 };
 </script>
 
