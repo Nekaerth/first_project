@@ -17,7 +17,6 @@
           <br />
           <br />
         </template>
-
         <select v-model="selectedTodo">
           <option v-for="(todo, index) in todos" :value="todo" :key="index">
             {{ todo.title }}
