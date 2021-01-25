@@ -6,14 +6,15 @@ export default {
     ...mapState("todos", ["status", "todos"]),
   },
   methods: {
-		...mapActions("todos", ["fetchTodos"]),
-		todoTitles() {
-			return this.todos.map(todo => todo.title);
-		}
+    ...mapActions("todos", ["fetchTodos"]),
+    todoTitles() {
+      return this.todos.map((todo) => todo.title);
+    },
   },
   render() {
     return this.$scopedSlots.default({
       status: this.status,
+      todos: this.todos,
       todoTitles: this.todoTitles(),
     });
   },

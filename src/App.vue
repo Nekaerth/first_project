@@ -1,12 +1,9 @@
 <template>
   <div id="app">
-    <TodoContainer v-slot="{ status }">
-      Todo status: {{ status }}
-    </TodoContainer>
+    <Todos />
     <ItemContainer v-slot="{ items }">
       <div>
         <ItemMaker />
-
         <template v-for="item in items">
           <Product
             v-if="item.type == 'Product'"
@@ -33,8 +30,8 @@
 import ItemMaker from "./components/ItemMaker.vue";
 import Person from "./components/Person.vue";
 import Product from "./components/Product.vue";
+import Todos from "./components/Todos.vue";
 import ItemContainer from "./containers/itemContainer.js";
-import TodoContainer from "./containers/todoContainer.js";
 import { mapActions } from "vuex";
 
 export default {
@@ -43,8 +40,8 @@ export default {
     Person,
     ItemMaker,
     Product,
+    Todos,
     ItemContainer,
-    TodoContainer,
   },
   methods: {
     ...mapActions("todos", ["fetchTodos"]),
